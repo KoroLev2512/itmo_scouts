@@ -30,4 +30,9 @@ export class UsersController {
       throw new BadRequestException();
     }
   }
+
+  @Get()
+  async getUsers() {
+    return this.authClient.send({ cmd: 'get.users' }, {});
+  }
 }

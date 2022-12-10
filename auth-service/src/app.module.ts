@@ -1,12 +1,19 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { AuthModule } from './routes/auth/auth.module';
+import { configService } from './config/database';
+import { UserModule } from './routes/user/user.module';
 import { TokenModule } from './routes/token/token.module';
 
 @Module({
-  imports: [ConfigModule.forRoot({ isGlobal: true }), TokenModule, AuthModule],
+  imports: [
+    TypeOrmModule.forRoot(configService.getTypeOrmConfig()),
+    ConfigModule.forRoot({ isGlobal: true }),
+    TokenModule,
+    UserModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
