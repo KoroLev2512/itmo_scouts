@@ -1,7 +1,7 @@
 import { JwtPayload } from 'jsonwebtoken';
 const jwt = require('jsonwebtoken');
 
-export const decodeJWT = (payload: string): JwtPayload | string | undefined => {
+export const decodeJWT = (payload: string) => {
   try {
     return jwt.verify(payload, process.env.JWT_TOKEN);
   } catch (error) {
