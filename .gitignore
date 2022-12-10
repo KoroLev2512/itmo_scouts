@@ -26,3 +26,5 @@ archive.zip
 # vim temporary files
 *~
 .*.sw?
+
+volumes
