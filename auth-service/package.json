@@ -24,6 +24,7 @@
     "@nestjs/common": "^9.0.0",
     "@nestjs/config": "^2.2.0",
     "@nestjs/core": "^9.0.0",
+    "@nestjs/microservices": "^9.2.1",
     "@nestjs/platform-express": "^9.0.0",
     "@types/jsonwebtoken": "^8.5.9",
     "jsonwebtoken": "^8.5.1",
