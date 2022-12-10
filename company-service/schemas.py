@@ -6,13 +6,13 @@ T = TypeVar('T')
 
 
 class CompanySchema(BaseModel):
-    id: Optional[int] = None
-    name: Optional[str] = None
-    profile_id: Optional[int] = None
-    direction: Optional[str] = None
+    id: int
+    name: str
+    profile_id: int
+    direction: str
     description: Optional[str] = None
-    inn: Optional[int] = None
-    ogrn: Optional[int] = None
+    inn: int
+    ogrn: int
     logo: Optional[str] = None
 
 
@@ -36,5 +36,39 @@ class Response(GenericModel, Generic[T]):
 
 
 class ContactsSchema(BaseModel):
-
+    id: int
+    name: str
     id_com: Optional[int] = None
+    name: str
+    surname: str
+    phone: str
+    email: str
+    photo: Optional[str] = None
+
+    class Config:
+        orm_mode = True
+
+class RequestContacts(BaseModel):
+    parameter: ContactsSchema = Field(...)
+
+
+class JobsSchema(BaseModel):
+    id: int
+    name: str
+    id_com: Optional[int] = None
+
+    class Config:
+        orm_mode = True
+
+
+class RequestJobs(BaseModel):
+    parameter: JobsSchema = Field(...)
+
+
+class TeamsSchema(BaseModel):
+    id: int
+    job_id: int
+    student_id: list
+
+    class Config:
+        orm_mode = True
