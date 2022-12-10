@@ -25,7 +25,7 @@ export class UsersController {
   @Get('token')
   async getToken(@Body() payload: User) {
     try {
-      return await this.authClient.send({ cmd: 'get.token' }, payload);
+      return this.authClient.send({ cmd: 'get.token' }, payload);
     } catch (error) {
       throw new BadRequestException();
     }
