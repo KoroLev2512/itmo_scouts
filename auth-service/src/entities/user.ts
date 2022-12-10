@@ -13,4 +13,7 @@ export class User extends BaseEntity {
 
   @Column({ default: false })
   moderated: boolean;
+
+  @Column({ default: 'student' })
+  role: 'student' | 'company' | 'admin' | 'moderator';
 }
