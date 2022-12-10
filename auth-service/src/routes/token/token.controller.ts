@@ -1,5 +1,5 @@
-import { Controller, Query } from '@nestjs/common';
-import { decodeJWT } from 'src/providers/jwt.provider';
+import { Controller } from '@nestjs/common';
+import { decodeJWT, signJWT } from 'src/providers/jwt.provider';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { JwtPayload } from 'jsonwebtoken';
 
@@ -13,5 +13,10 @@ export class TokenController {
   @MessagePattern({ cmd: 'decode.token' })
   async decodeToken(@Payload() token: string): Promise<JwtPayload | string> {
     return decodeJWT(token);
+  }
+
+  @MessagePattern({ cmd: 'get.token' })
+  async getToken(@Payload() payload: JwtPayload): Promise<string> {
+    return signJWT(payload);
   }
 }

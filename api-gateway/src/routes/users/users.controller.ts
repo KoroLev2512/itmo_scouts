@@ -1,5 +1,6 @@
 import {
   BadRequestException,
+  Body,
   Controller,
   Get,
   Inject,
@@ -8,6 +9,7 @@ import {
 import { ClientProxy } from '@nestjs/microservices';
 import { JwtPayload } from 'jsonwebtoken';
 import { MICROSERVICES } from 'src/common/const/microservices';
+import { User } from 'src/types/user';
 
 @Controller('users')
 export class UsersController {
@@ -21,13 +23,11 @@ export class UsersController {
   }
 
   @Get('token')
-  async getToken(@Query() payload: JwtPayload) {
+  async getToken(@Body() payload: User) {
     try {
-      return await this.authClient
-        .send({ cmd: 'decode.token' }, payload)
-        .subscribe();
+      return await this.authClient.send({ cmd: 'get.token' }, payload);
     } catch (error) {
-      throw new BadRequestException('sss');
+      throw new BadRequestException();
     }
   }
 }
