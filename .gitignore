@@ -28,3 +28,6 @@ archive.zip
 .*.sw?
 
 **/venv
+
+
+volumes/*
