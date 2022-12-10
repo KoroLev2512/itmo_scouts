@@ -4,6 +4,8 @@ import {
   Controller,
   Get,
   Inject,
+  Param,
+  Post,
   Query,
 } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
@@ -34,5 +36,15 @@ export class UsersController {
   @Get()
   async getUsers() {
     return this.authClient.send({ cmd: 'get.users' }, {});
+  }
+
+  @Get(':id')
+  async getUser(@Param('id') id: string) {
+    return this.authClient.send({ cmd: 'get.user' }, { id });
+  }
+
+  @Post()
+  async createUser(@Body() dto: User) {
+    return this.authClient.send({ cmd: 'create.user' }, dto);
   }
 }
