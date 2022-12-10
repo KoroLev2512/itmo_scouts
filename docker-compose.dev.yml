@@ -1,0 +1,30 @@
+version: "3.8"
+
+services:
+  postgres:
+    container_name: db
+    image: postgres
+    env_file: .env
+    ports:
+      - "${POSTGRES_PORT}:5432"
+    networks:
+      - server-net
+    restart: always
+    volumes:
+      - ./volumes/postgres-data:/var/lib/postgresql/data
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+    restart: always
+    ports:
+      - 8080:3000
+      - 9229:9229
+    volumes:
+      - ./frontend/node_modules:/usr/src/frontend/node_modules
+      - ./frontend/.next:/usr/src/frontend/.next
+      - ./frontend:/usr/src/frontend
+
+networks:
+  server-net:
