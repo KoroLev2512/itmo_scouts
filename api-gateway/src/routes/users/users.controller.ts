@@ -1,3 +1,4 @@
+const bcrypt = require('bcrypt');
 import {
   BadRequestException,
   Body,
@@ -10,6 +11,7 @@ import {
 } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { JwtPayload } from 'jsonwebtoken';
+import { SALT_ROUNDS } from 'src/common/const/bcrypt';
 import { MICROSERVICES } from 'src/common/const/microservices';
 import { User } from 'src/types/user';
 
@@ -45,6 +47,7 @@ export class UsersController {
 
   @Post()
   async createUser(@Body() dto: User) {
-    return this.authClient.send({ cmd: 'create.user' }, dto);
+    const password = await bcrypt.hash(dto.password, SALT_ROUNDS);
+    return this.authClient.send({ cmd: 'create.user' }, { ...dto, password });
   }
 }
