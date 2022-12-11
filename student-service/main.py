@@ -10,7 +10,7 @@ load_dotenv(".env")
 
 app = FastAPI()
 
-app.add_middleware(DBSessionMiddleware, db_url=os.environ["DATABASE_URL"])
+app.add_middleware(DBSessionMiddleware, db_url=os.environ["STUDENT_DATABASE_URL"])
 
 
 @app.post("/students", response_model=schemas.Student)

@@ -11,7 +11,7 @@ load_dotenv(".env")
 
 app = FastAPI()
 
-app.add_middleware(DBSessionMiddleware, db_url=os.environ["DATABASE_URL"])
+app.add_middleware(DBSessionMiddleware, db_url=os.environ["COMPANY_DATABASE_URL"])
 
 
 @app.get("/")
