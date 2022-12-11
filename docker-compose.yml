@@ -1,0 +1,79 @@
+version: "3.8"
+
+services:
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+    restart: always
+    ports:
+      - 8080:3000
+      - 9229:9229
+    volumes:
+      - ./frontend/node_modules:/usr/src/frontend/node_modules
+      - ./frontend/.next:/usr/src/frontend/.next
+      - ./frontend:/usr/src/frontend
+
+  postgres:
+    container_name: user_db
+    image: postgres
+    env_file: .env
+    ports:
+      - "${POSTGRES_PORT}:5432"
+    restart: always
+    volumes:
+      - ./volumes/postgres-data:/var/lib/postgresql/data
+
+  company_bd:
+    container_name: postgresql_db
+    image: postgres
+    restart: always
+    ports:
+      - 5432:5432
+    env_file:
+      - .env
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
+
+  company_service:
+    container_name: app
+    build:
+      context: ./company_service
+      dockerfile: Dockerfile
+    command: bash -c "uvicorn main:app --host 0.0.0.0 --port 8000 --reload"
+    volumes:
+      - .:/app
+    ports:
+      - 5001:8000
+    depends_on:
+      - db
+    restart: always
+
+  student_db:
+    container_name: student_db
+    image: postgres
+    restart: always
+    ports:
+      - 5432:5432
+    env_file:
+      - .env
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
+
+  student-service:
+    container_name: app
+    build:
+      context: ./student-service
+      dockerfile: Dockerfile
+    command: bash -c "uvicorn main:app --host 0.0.0.0 --port 8000 --reload"
+    volumes:
+      - .:/app
+    ports:
+      - 8000:8000
+    depends_on:
+      - db
+    restart: always

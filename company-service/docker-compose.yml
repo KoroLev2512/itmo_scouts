@@ -1,7 +1,6 @@
 version: "3.8"
 
 services:
-
   db:
     container_name: postgresql_db
     image: postgres
@@ -15,19 +14,6 @@ services:
       - POSTGRES_PASSWORD=${DB_PASSWORD}
       - POSTGRES_DB=${DB_NAME}
 
-  pgadmin:
-    container_name: pgadmin
-    image: dpage/pgadmin4
-    ports:
-      - 5050:80
-    depends_on:
-      - db
-    env_file:
-      - .env
-    environment:
-      - PGADMIN_DEFAULT_EMAIL=${PGADMIN_EMAIL}
-      - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_PASSWORD}
-
   app:
     container_name: app
     build: .
@@ -35,7 +21,7 @@ services:
     volumes:
       - .:/app
     ports:
-      - 8000:8000
+      - 5001:8000
     depends_on:
       - db
     restart: always
