@@ -86,6 +86,28 @@ services:
     networks:
       - server-net
 
+  auth-service:
+    container_name: auth-service
+    build:
+      dockerfile: Dockerfile
+      context: ./auth-service
+    ports:
+      - "6000:6000"
+    command: npm run start
+    networks:
+      - server-net
+
+  api-gateway:
+    container_name: api-gateway
+    build:
+      dockerfile: Dockerfile
+      context: ./api-gateway
+    ports:
+      - "3000:3000"
+    command: npm run start
+    networks:
+      - server-net
+
 networks:
   server-net:
     driver: bridge
