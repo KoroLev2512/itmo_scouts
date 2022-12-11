@@ -1,0 +1,15 @@
+.wrapper {
+  display: grid;
+  grid-template-columns: 1fr 600px;
+}
+
+.form {
+  padding: 48px 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.banner {
+  background: black;
+}

@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <div>
       <Head>
-        <title>ITMO.SCOUTS</title>
+        n<title>ITMO.SCOUTS</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
