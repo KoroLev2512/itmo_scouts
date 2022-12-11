@@ -23,7 +23,6 @@ class Student(Base):
     email = Column(String)
     description = Column(String)
 
-    user = relationship("User")
     citizenship = relationship("Citizenship")
 
 
@@ -33,7 +32,7 @@ class Citizenship(Base):
     name = Column(String)
 
 
-class Projects(Base):
+class Project(Base):
     __tablename__ = "projects"
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String)
@@ -52,7 +51,7 @@ class Resume(Base):
     student = relationship("Student")
 
 
-class Applications(Base):
+class Application(Base):
     __tablename__ = "applications"
     id = Column(Integer, primary_key=True, index=True)
     student_id = Column(Integer, ForeignKey("student.id"))
