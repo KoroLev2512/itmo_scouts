@@ -71,3 +71,4 @@ class TeamsSchema(BaseModel):
 
     class Config:
         orm_mode = True
+
