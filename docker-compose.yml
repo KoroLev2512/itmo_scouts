@@ -43,7 +43,7 @@ services:
     networks:
       - server-net
 
-  company_service:
+  company-service:
     container_name: company-service
     build:
       context: ./company-service
