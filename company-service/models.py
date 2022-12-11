@@ -10,7 +10,7 @@ class Company(Base):
     id = Column(Integer, primary_key=True, index=True, unique=True)
     name = Column(String)
     profile_id = Column(Integer)
-    direction = Column(Integer)
+    direction = Column(String)
     description = Column(String)
     inn = Column(Integer)
     ogrn = Column(Integer)
@@ -30,6 +30,8 @@ class Contact(Base):
     email = Column(String)
     photo = Column(String)
 
+    company = relationship("Company")
+
 
 class Jobs(Base):
     __tablename__ = "jobs"
@@ -47,5 +49,7 @@ class Teams(Base):
     __tablename__ = "teams"
 
     id = Column(Integer, primary_key=True, index=True)
-    job_id = Column(Integer, ForeignKey("job.id"))
+    job_id = Column(Integer, ForeignKey("jobs.id"))
     student_id = Column(String)
+
+    jobs = relationship("Jobs")

@@ -1,4 +1,4 @@
-from typing import List, Optional, Generic, TypeVar
+from typing import Optional, Generic, TypeVar
 from pydantic import BaseModel, Field
 from pydantic.generics import GenericModel
 
@@ -6,14 +6,14 @@ T = TypeVar('T')
 
 
 class CompanySchema(BaseModel):
-    id: int
+    id: int | None
     name: str
-    profile_id: int
-    direction: str
-    description: Optional[str] = None
+    profile_id: int | None
+    direction: str | None
+    description: str | None
     inn: int
     ogrn: int
-    logo: Optional[str] = None
+    logo: str | None
 
 
     class Config:
@@ -36,14 +36,13 @@ class Response(GenericModel, Generic[T]):
 
 
 class ContactsSchema(BaseModel):
-    id: int
-    name: str
-    id_com: Optional[int] = None
+    id: int | None
+    id_com: int | None
     name: str
     surname: str
     phone: str
     email: str
-    photo: Optional[str] = None
+    photo: str | None
 
     class Config:
         orm_mode = True
@@ -53,9 +52,9 @@ class RequestContacts(BaseModel):
 
 
 class JobsSchema(BaseModel):
-    id: int
+    id: int | None
     name: str
-    id_com: Optional[int] = None
+    id_com: int | None
 
     class Config:
         orm_mode = True
@@ -66,9 +65,9 @@ class RequestJobs(BaseModel):
 
 
 class TeamsSchema(BaseModel):
-    id: int
-    job_id: int
-    student_id: list
+    id: int | None
+    job_id: int | None
+    student_id: str | None
 
     class Config:
         orm_mode = True
