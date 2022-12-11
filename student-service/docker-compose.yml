@@ -7,7 +7,7 @@ services:
     image: postgres
     restart: always
     ports:
-      - 5432:5432
+      - 5001:5001
     env_file:
       - .env
     environment:
@@ -19,7 +19,7 @@ services:
     container_name: pgadmin
     image: dpage/pgadmin4
     ports:
-      - 5050:80
+      - 5002:80
     depends_on:
       - db
     env_file:
@@ -31,11 +31,11 @@ services:
   app:
     container_name: app
     build: .
-    command: bash -c "uvicorn main:app --host 0.0.0.0 --port 8000 --reload"
+    command: bash -c "uvicorn main:app --host 0.0.0.0 --port 5003 --reload"
     volumes:
       - .:/app
     ports:
-      - 8000:8000
+      - 5003:5003
     depends_on:
       - db
     restart: always
